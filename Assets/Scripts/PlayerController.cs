@@ -10,7 +10,8 @@ public class PlayerController : MonoBehaviour
     private float speedHMax = 10f;
     private float inputH;
 
-    private float jumpForce = 1100f;
+    private float jumpForce = 22f;
+    private float airControlForce = 2.5f;
     private float speedVMax = 6f;
 
     private float dashForce = 2f;
@@ -77,7 +78,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log(playerRb.transform.parent.transform.rotation.eulerAngles);
+
     }
 
     // Recharge stamina when player is touching a platform
@@ -122,9 +123,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // When collecting a powerup
     private void OnTriggerEnter(Collider other)
     {
+        // When collecting a powerup
         if (other.gameObject.CompareTag("Powerup"))
         {
             Destroy(other.gameObject);
@@ -144,7 +145,6 @@ public class PlayerController : MonoBehaviour
     // Move player left and right relative to parent (more if dashing)
     void MovePlayer()
     {
-        //playerRb.AddForce(Vector3.right * inputH * 10f);
         if (Input.GetAxisRaw("Fire3") > 0 && stamina > staminaMin)
         {
             playerRb.maxAngularVelocity = speedHMaxDash;
@@ -163,8 +163,33 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Space) && stamina > staminaMin && playerRb.velocity.y < speedVMax)
         {
-            playerRb.AddForce(Vector3.up * jumpForce * Time.deltaTime);
+            playerRb.AddForce(Vector3.up * jumpForce);
             DecreaseStamina();
+            AirControl();
+        }
+    }
+
+    // Allow player to move left and right relative to the wall while in the air
+    void AirControl()
+    {
+        if (playerRb.transform.parent.parent.transform.rotation.eulerAngles.y == 0)
+        {
+            playerRb.AddForce(Vector3.right * inputH * airControlForce);
+        }
+
+        if (playerRb.transform.parent.parent.transform.rotation.eulerAngles.y == 90)
+        {
+            playerRb.AddForce(Vector3.back * inputH * airControlForce);
+        }
+
+        if (playerRb.transform.parent.parent.transform.rotation.eulerAngles.y == 180)
+        {
+            playerRb.AddForce(Vector3.left * inputH * airControlForce);
+        }
+
+        if (playerRb.transform.parent.parent.transform.rotation.eulerAngles.y == 270)
+        {
+            playerRb.AddForce(Vector3.forward * inputH * airControlForce);
         }
     }
 

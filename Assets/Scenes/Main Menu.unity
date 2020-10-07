@@ -1527,7 +1527,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 684315088}
+    m_TransformParent: {fileID: 572324600}
     m_Modifications:
     - target: {fileID: 2997538437170253348, guid: a62fb15a569e83645a14bf2081f976eb,
         type: 3}
@@ -1537,7 +1537,7 @@ PrefabInstance:
     - target: {fileID: 2997538437170253348, guid: a62fb15a569e83645a14bf2081f976eb,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.75
+      value: 0.7499997
       objectReference: {fileID: 0}
     - target: {fileID: 2997538437170253348, guid: a62fb15a569e83645a14bf2081f976eb,
         type: 3}
@@ -1547,7 +1547,7 @@ PrefabInstance:
     - target: {fileID: 2997538437170253348, guid: a62fb15a569e83645a14bf2081f976eb,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2997538437170253348, guid: a62fb15a569e83645a14bf2081f976eb,
         type: 3}
@@ -2434,6 +2434,37 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 549975415}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &572324599
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 572324600}
+  m_Layer: 0
+  m_Name: Scaler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &572324600
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 572324599}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 426861953}
+  m_Father: {fileID: 684315088}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &572583729
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2816,7 +2847,7 @@ Transform:
   m_LocalPosition: {x: 2.21, y: 8.5, z: 9.25}
   m_LocalScale: {x: 1.0000002, y: 1.0000005, z: 1.0000005}
   m_Children:
-  - {fileID: 426861953}
+  - {fileID: 572324600}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 270, y: 0, z: 0}
@@ -5749,10 +5780,10 @@ MonoBehaviour:
     Spin: <font="212 Keyboard
     SDF"><size=64>st</size></font>
 
-    Arise: <font="212 Keyboard SDF"><size=64>w</size></font>*
+    Spin Faster: <font="212 Keyboard SDF"><size=64>g</size></font>*
 
-    Accelerate:
-    <font="212 Keyboard SDF"><size=64>g</size></font>*
+    Arise:
+    <font="212 Keyboard SDF"><size=64>w</size></font>*
 
     *Requires Light</color>'
   m_isRightToLeft: 0

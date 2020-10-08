@@ -14874,7 +14874,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameHasStarted: 0
   gameWon: 0
-  titleLetters: {fileID: 0}
 --- !u!114 &618998106
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28968,7 +28967,7 @@ PrefabInstance:
     - target: {fileID: 5182328037952516214, guid: 6e8d6df3d23b8474c999b54418017a20,
         type: 3}
       propertyPath: powerupText
-      value: Hitting a ceiling can often take me to new places.
+      value: Sometimes hitting a ceiling can take me to new places.
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e8d6df3d23b8474c999b54418017a20, type: 3}

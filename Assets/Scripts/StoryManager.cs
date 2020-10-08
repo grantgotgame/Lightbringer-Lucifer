@@ -8,22 +8,18 @@ public class StoryManager : MonoBehaviour
 {
     public string powerupText;
 
-    private TMP_Text storyText;
-
     private GameManager gameManagerScript;
 
     // Start is called before the first frame update
     void Start()
     {
-        storyText = GameObject.Find("Story Text").GetComponent<TMP_Text>();
-
         gameManagerScript = GameObject.Find("Game Manager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     // Change story text when collecting powerup
@@ -31,7 +27,7 @@ public class StoryManager : MonoBehaviour
     {
         if (gameManagerScript.gameHasStarted)
         {
-            gameManagerScript.UpdateStoryText(powerupText);            
+            gameManagerScript.UpdateStoryText(powerupText);
         }
-    }    
+    }
 }

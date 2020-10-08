@@ -1,5 +1,5 @@
 build.bc
-/temp/
-/WebGL/
+/[Tt]emp/
+/[Bb]uild/
 /.vs/
-/Library/
+/[Ll]ibrary/

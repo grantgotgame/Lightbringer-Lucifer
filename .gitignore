@@ -3,3 +3,5 @@ build.bc
 /[Bb]uild/
 /.vs/
 /[Ll]ibrary/
+*.sln
+*.csproj

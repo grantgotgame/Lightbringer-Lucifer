@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -27,14 +28,16 @@ public class PlayerController : MonoBehaviour
     private float rotationFromWallY = 0f;
 
     private Rigidbody playerRb;
+    private Slider staminaSlider;
 
     private GameManager gameManagerScript;
 
     // Start is called before the first frame update
     void Start()
     {
-        // Find player Rigidbody
+        // Find player Rigidbody and stamina slider
         playerRb = GetComponent<Rigidbody>();
+        staminaSlider = GetComponentInChildren<Slider>();
 
         // Find game manager script
         gameManagerScript = GameObject.Find("Game Manager").GetComponent<GameManager>();
@@ -78,7 +81,11 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        // Set stamina slider values and size
+        staminaSlider.maxValue = staminaMax;
+        staminaSlider.value = stamina;
+        staminaSlider.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(
+            RectTransform.Axis.Horizontal, staminaMax * 3);
     }
 
     // Recharge stamina when player is touching a platform

@@ -45,113 +45,24 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        inputH = Input.GetAxis("Horizontal");
-
         MovePlayer();
         Jump();
-
         LockPlayerPosition();
-
-        // Check if player's rotation is correct, and fix it if not
-        float marginOfError = .1f;
-        if (playerRb.transform.localEulerAngles.x < rotationFromWallX - marginOfError ||
-            playerRb.transform.localEulerAngles.x > rotationFromWallX + marginOfError)
-        {
-            LockPlayerRotation();
-        }
-
-        if (SceneManager.GetActiveScene().name == "Well" && gameManagerScript.gameHasStarted)
-        {
-            // Infinitely increase stamina when player reaches ceiling
-            if (gameManagerScript.gameWon)
-            {
-                staminaMax++;
-                stamina = staminaMax;
-            }
-
-            // Load main menu when player beats game and reaches a certain height
-            float winHeight = 500f;
-            if (playerRb.transform.position.y > winHeight)
-            {
-                gameManagerScript.EndGame();
-            }
-        }
+        LockPlayerRotation();
+        EndGameConditions();
+        UpdateStaminaBar();
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Set stamina slider values and size
-        staminaSlider.maxValue = staminaMax;
-        staminaSlider.value = stamina;
-        staminaSlider.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(
-            RectTransform.Axis.Horizontal, staminaMax * 3);
-    }
 
-    // Recharge stamina when player is touching a platform
-    private void OnCollisionStay(Collision collision)
-    {
-        if (collision.gameObject.tag == "Platform" && stamina < staminaMax)
-        {
-            stamina++;
-        }
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        // Start game when player hits a platform
-        if (SceneManager.GetActiveScene().name == "Well")
-        {
-            if (!gameManagerScript.gameHasStarted && collision.gameObject.tag == "Platform")
-            {
-                gameManagerScript.StartGame();
-            }
-
-            // Set player parent and rotation relative to wall on collision
-            if (collision.gameObject.CompareTag("Wall"))
-            {
-                playerRb.transform.parent = collision.gameObject.transform.GetChild(0);
-                LockPlayerRotation();
-            }
-        }
-    }
-
-    // Set stamina to zero while in front of black panel
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject.CompareTag("Dark"))
-        {
-            stamina = staminaMin;
-        }
-        // Set stamina to max while in front of white panel
-        if (other.gameObject.CompareTag("Light"))
-        {
-            stamina = staminaMax;
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        // When collecting a powerup
-        if (other.gameObject.CompareTag("Powerup"))
-        {
-            Destroy(other.gameObject);
-
-            // Increase max stamina
-            staminaMax += staminaFromPowerup;
-            stamina += staminaFromPowerup;
-        }
-
-        // Mark game as won when ceiling is reached
-        if (gameManagerScript.gameHasStarted && other.gameObject.CompareTag("Ceiling"))
-        {
-            gameManagerScript.gameWon = true;
-        }
     }
 
     // Move player left and right relative to parent (more if dashing)
     void MovePlayer()
     {
+        inputH = Input.GetAxis("Horizontal");
         if (Input.GetAxisRaw("Fire3") > 0 && stamina > staminaMin)
         {
             playerRb.maxAngularVelocity = speedHMaxDash;
@@ -210,13 +121,47 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // Lock player's rotation relative to wall
+    // Check if player's rotation relative to wall is correct, and fix it if not
     void LockPlayerRotation()
     {
-        playerRb.constraints = RigidbodyConstraints.FreezeAll;
-        playerRb.transform.localEulerAngles = new Vector3(rotationFromWallX, rotationFromWallY);
-        playerRb.constraints = RigidbodyConstraints.FreezeRotationX |
-            RigidbodyConstraints.FreezeRotationY;
+        float marginOfError = .1f;
+        if (playerRb.transform.localEulerAngles.x < rotationFromWallX - marginOfError ||
+            playerRb.transform.localEulerAngles.x > rotationFromWallX + marginOfError)
+        {
+            playerRb.constraints = RigidbodyConstraints.FreezeAll;
+            playerRb.transform.localEulerAngles = new Vector3(rotationFromWallX, rotationFromWallY);
+            playerRb.constraints = RigidbodyConstraints.FreezeRotationX |
+                RigidbodyConstraints.FreezeRotationY;
+        }
+    }
+
+    void EndGameConditions()
+    {
+        if (SceneManager.GetActiveScene().name == "Well" && gameManagerScript.gameHasStarted)
+        {
+            // Infinitely increase stamina when player reaches ceiling
+            if (gameManagerScript.gameWon)
+            {
+                staminaMax++;
+                stamina = staminaMax;
+            }
+
+            // Load main menu when player beats game and reaches a certain height
+            float winHeight = 500f;
+            if (playerRb.transform.position.y > winHeight)
+            {
+                gameManagerScript.EndGame();
+            }
+        }
+    }
+
+    // Set stamina slider values and size
+    void UpdateStaminaBar()
+    {
+        staminaSlider.maxValue = staminaMax;
+        staminaSlider.value = stamina;
+        staminaSlider.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(
+            RectTransform.Axis.Horizontal, staminaMax * 3);
     }
 
     // Decrease stamina toward minimum
@@ -225,6 +170,67 @@ public class PlayerController : MonoBehaviour
         if (stamina > staminaMin)
         {
             stamina--;
+        }
+    }
+
+    // Set stamina to zero while in front of black panel
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("Dark"))
+        {
+            stamina = staminaMin;
+        }
+        // Set stamina to max while in front of white panel
+        if (other.gameObject.CompareTag("Light"))
+        {
+            stamina = staminaMax;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        // When collecting a powerup
+        if (other.gameObject.CompareTag("Powerup"))
+        {
+            Destroy(other.gameObject);
+
+            // Increase max stamina
+            staminaMax += staminaFromPowerup;
+            stamina += staminaFromPowerup;
+        }
+
+        // Mark game as won when ceiling is reached
+        if (gameManagerScript.gameHasStarted && other.gameObject.CompareTag("Ceiling"))
+        {
+            gameManagerScript.gameWon = true;
+        }
+    }
+
+    // Recharge stamina when player is touching a platform
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.tag == "Platform" && stamina < staminaMax)
+        {
+            stamina++;
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        // Start game when player hits a platform
+        if (SceneManager.GetActiveScene().name == "Well")
+        {
+            if (!gameManagerScript.gameHasStarted && collision.gameObject.tag == "Platform")
+            {
+                gameManagerScript.StartGame();
+            }
+
+            // Set player parent and rotation relative to wall on collision
+            if (collision.gameObject.CompareTag("Wall"))
+            {
+                playerRb.transform.parent = collision.gameObject.transform.GetChild(0);
+                LockPlayerRotation();
+            }
         }
     }
 }

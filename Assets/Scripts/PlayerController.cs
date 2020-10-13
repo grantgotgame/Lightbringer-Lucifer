@@ -63,7 +63,8 @@ public class PlayerController : MonoBehaviour
     void MovePlayer()
     {
         inputH = Input.GetAxis("Horizontal");
-        if (Input.GetAxisRaw("Fire3") > 0 && stamina > staminaMin)
+        if ((Input.GetAxisRaw("Fire3") > 0 || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) &&
+            stamina > staminaMin)
         {
             playerRb.maxAngularVelocity = speedHMaxDash;
             playerRb.AddRelativeTorque(Vector3.forward * speedH * inputH * dashForce);
@@ -79,7 +80,8 @@ public class PlayerController : MonoBehaviour
     // Allow player to arise (jump) when spacebar is held
     void Jump()
     {
-        if (Input.GetKey(KeyCode.Space) && stamina > staminaMin && playerRb.velocity.y < speedVMax)
+        if ((Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) &&
+            stamina > staminaMin && playerRb.velocity.y < speedVMax)
         {
             playerRb.AddForce(Vector3.up * jumpForce);
             DecreaseStamina();

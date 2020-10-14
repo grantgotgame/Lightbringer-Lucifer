@@ -195,7 +195,7 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // Play audio when triggering light panel
-        if (other.gameObject.CompareTag("Light"))
+        if (other.gameObject.CompareTag("Light") && !playerAudio.isPlaying)
         {
             playerAudio.clip = sharpInhale;
             playerAudio.Play();

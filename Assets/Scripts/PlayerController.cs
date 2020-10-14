@@ -22,24 +22,26 @@ public class PlayerController : MonoBehaviour
     public int staminaMax = 0;
     private int staminaMin = 0;
     private int staminaFromPowerup = 5;
+    private Slider staminaSlider;
 
     private float distanceFromWall = .75f;
     private float rotationFromWallX = 270f;
     private float rotationFromWallY = 0f;
 
     private Rigidbody playerRb;
-    private Slider staminaSlider;
+
+    private AudioSource playerAudio;
+    public AudioClip sharpInhale;
 
     private GameManager gameManagerScript;
 
     // Start is called before the first frame update
     void Start()
     {
-        // Find player Rigidbody and stamina slider
+        // Initialize components
         playerRb = GetComponent<Rigidbody>();
         staminaSlider = GetComponentInChildren<Slider>();
-
-        // Find game manager script
+        playerAudio = GetComponent<AudioSource>();
         gameManagerScript = GameObject.Find("Game Manager").GetComponent<GameManager>();
     }
 
@@ -175,13 +177,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // Set stamina to zero while in front of black panel
     private void OnTriggerStay(Collider other)
     {
+        // Set stamina to zero while in front of black panel
         if (other.gameObject.CompareTag("Dark"))
         {
             stamina = staminaMin;
         }
+
         // Set stamina to max while in front of white panel
         if (other.gameObject.CompareTag("Light"))
         {
@@ -191,12 +194,17 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // When collecting a powerup
+        // Play audio when triggering light panel
+        if (other.gameObject.CompareTag("Light"))
+        {
+            playerAudio.clip = sharpInhale;
+            playerAudio.Play();
+        }
+
+        // When collecting a powerup, destroy powerup and increase max stamina
         if (other.gameObject.CompareTag("Powerup"))
         {
             Destroy(other.gameObject);
-
-            // Increase max stamina
             staminaMax += staminaFromPowerup;
             stamina += staminaFromPowerup;
         }

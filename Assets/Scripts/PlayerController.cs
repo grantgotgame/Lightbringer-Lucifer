@@ -28,10 +28,13 @@ public class PlayerController : MonoBehaviour
     private float rotationFromWallX = 270f;
     private float rotationFromWallY = 0f;
 
-    private Rigidbody playerRb;
-
     private AudioSource playerAudio;
     public AudioClip sharpInhale;
+    public AudioClip sharpExhale;
+    public AudioClip softInhale;
+    public AudioClip softExhale;
+
+    private Rigidbody playerRb;
 
     private GameManager gameManagerScript;
 
@@ -194,10 +197,17 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // Play audio when triggering light panel
-        if (other.gameObject.CompareTag("Light") && !playerAudio.isPlaying)
+        // Play audio and when triggering light panel
+        if (other.gameObject.CompareTag("Light") && stamina < staminaMax)
         {
             playerAudio.clip = sharpInhale;
+            playerAudio.Play();
+        }
+
+        // Play audio and set bool when triggering dark panel
+        if (other.gameObject.CompareTag("Dark") && stamina > staminaMin)
+        {
+            playerAudio.clip = sharpExhale;
             playerAudio.Play();
         }
 

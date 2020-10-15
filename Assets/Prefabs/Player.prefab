@@ -5128,6 +5128,9 @@ MonoBehaviour:
   stamina: 0
   staminaMax: 0
   sharpInhale: {fileID: 8300000, guid: cdcc1fed8d7b3b345990d9a345476049, type: 3}
+  sharpExhale: {fileID: 8300000, guid: 2c52e6d4edc370b469015b71990ea6fe, type: 3}
+  softInhale: {fileID: 0}
+  softExhale: {fileID: 0}
 --- !u!23 &5811968254657088427
 MeshRenderer:
   m_ObjectHideFlags: 0

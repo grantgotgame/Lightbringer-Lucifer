@@ -177,6 +177,11 @@ public class PlayerController : MonoBehaviour
         if (stamina > staminaMin)
         {
             stamina--;
+            if (!playerAudio.isPlaying)
+            {
+                playerAudio.clip = softExhale;
+                playerAudio.Play();
+            }
         }
     }
 

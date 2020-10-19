@@ -149,8 +149,7 @@ public class PlayerController : MonoBehaviour
             // Infinitely increase stamina when player reaches ceiling
             if (gameManagerScript.gameWon)
             {
-                staminaMax++;
-                stamina = staminaMax;
+                IncreaseMaxStamina(1);
             }
 
             // Load main menu when player beats game and reaches a certain height
@@ -183,6 +182,27 @@ public class PlayerController : MonoBehaviour
                 playerAudio.Play();
             }
         }
+    }
+
+    // Increase stamina toward maximum
+    void IncreaseStamina(int amount)
+    {
+        if (stamina < staminaMax)
+        {
+            stamina += amount;
+            if (!playerAudio.isPlaying)
+            {
+                playerAudio.clip = softInhale;
+                playerAudio.Play();
+            }
+        }
+    }
+
+    // Increase maximum stamina and set stamina to match
+    void IncreaseMaxStamina(int amount)
+    {
+        staminaMax += amount;
+        IncreaseStamina(amount);
     }
 
     private void OnTriggerStay(Collider other)
@@ -219,9 +239,8 @@ public class PlayerController : MonoBehaviour
         // When collecting a powerup, destroy powerup and increase max stamina
         if (other.gameObject.CompareTag("Powerup"))
         {
+            IncreaseMaxStamina(staminaFromPowerup);
             Destroy(other.gameObject);
-            staminaMax += staminaFromPowerup;
-            stamina += staminaFromPowerup;
         }
 
         // Mark game as won when ceiling is reached
@@ -236,7 +255,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Platform" && stamina < staminaMax)
         {
-            stamina++;
+            IncreaseStamina(1);
         }
     }
 

@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
     public AudioClip sharpExhale;
     public AudioClip softInhale;
     public AudioClip softExhale;
+    public AudioClip ting;
 
     private Rigidbody playerRb;
 
@@ -236,9 +237,10 @@ public class PlayerController : MonoBehaviour
             playerAudio.Play();
         }
 
-        // When collecting a powerup, destroy powerup and increase max stamina
+        // When collecting a powerup, play sound, increase max stamina, and destroy powerup
         if (other.gameObject.CompareTag("Powerup"))
         {
+            playerAudio.PlayOneShot(ting);
             IncreaseMaxStamina(staminaFromPowerup);
             Destroy(other.gameObject);
         }

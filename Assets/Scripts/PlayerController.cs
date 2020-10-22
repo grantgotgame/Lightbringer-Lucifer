@@ -223,14 +223,14 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // Play audio and when triggering light panel
+        // Play audio when triggering light panel
         if (other.gameObject.CompareTag("Light") && stamina < staminaMax)
         {
             playerAudio.clip = sharpInhale;
             playerAudio.Play();
         }
 
-        // Play audio and set bool when triggering dark panel
+        // Play audio when triggering dark panel
         if (other.gameObject.CompareTag("Dark") && stamina > staminaMin)
         {
             playerAudio.clip = sharpExhale;

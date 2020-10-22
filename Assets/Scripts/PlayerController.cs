@@ -177,7 +177,7 @@ public class PlayerController : MonoBehaviour
         if (stamina > staminaMin)
         {
             stamina--;
-            if (!playerAudio.isPlaying)
+            if (!playerAudio.isPlaying || playerAudio.clip == ting)
             {
                 playerAudio.clip = softExhale;
                 playerAudio.Play();
@@ -191,7 +191,7 @@ public class PlayerController : MonoBehaviour
         if (stamina < staminaMax)
         {
             stamina += amount;
-            if (!playerAudio.isPlaying)
+            if (!playerAudio.isPlaying || playerAudio.clip == ting)
             {
                 playerAudio.clip = softInhale;
                 playerAudio.Play();
@@ -240,6 +240,7 @@ public class PlayerController : MonoBehaviour
         // When collecting a powerup, play sound, increase max stamina, and destroy powerup
         if (other.gameObject.CompareTag("Powerup"))
         {
+            playerAudio.clip = ting;
             playerAudio.PlayOneShot(ting);
             IncreaseMaxStamina(staminaFromPowerup);
             Destroy(other.gameObject);

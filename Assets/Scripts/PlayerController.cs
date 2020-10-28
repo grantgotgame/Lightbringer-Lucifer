@@ -35,6 +35,9 @@ public class PlayerController : MonoBehaviour
     public AudioClip softExhale;
     public AudioClip ting;
 
+    private bool canPlaySound = true;
+    private float soundTimerLength = .5f;
+
     private Rigidbody playerRb;
 
     private GameManager gameManagerScript;
@@ -171,17 +174,27 @@ public class PlayerController : MonoBehaviour
             RectTransform.Axis.Horizontal, staminaMax * 3);
     }
 
+    // Check whether audio can be played and countdown time if not
+    IEnumerator PlaySoundDelayed(AudioClip sound)
+    {
+        if (canPlaySound)
+        {
+            playerAudio.clip = sound;
+            playerAudio.Play();
+            canPlaySound = false;
+            yield return new WaitForSeconds(soundTimerLength);
+            canPlaySound = true;
+            playerAudio.Stop();
+        }
+    }
+
     // Decrease stamina toward minimum
     void DecreaseStamina()
     {
         if (stamina > staminaMin)
         {
             stamina--;
-            if (!playerAudio.isPlaying || playerAudio.clip == ting)
-            {
-                playerAudio.clip = softExhale;
-                playerAudio.Play();
-            }
+            StartCoroutine(PlaySoundDelayed(softExhale));
         }
     }
 
@@ -191,11 +204,7 @@ public class PlayerController : MonoBehaviour
         if (stamina < staminaMax)
         {
             stamina += amount;
-            if (!playerAudio.isPlaying || playerAudio.clip == ting)
-            {
-                playerAudio.clip = softInhale;
-                playerAudio.Play();
-            }
+            StartCoroutine(PlaySoundDelayed(softInhale));
         }
     }
 
@@ -223,15 +232,17 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        int staminaMargin = 4;
+
         // Play audio when triggering light panel
-        if (other.gameObject.CompareTag("Light") && stamina < staminaMax)
+        if (other.gameObject.CompareTag("Light") && stamina < staminaMax - staminaMargin)
         {
             playerAudio.clip = sharpInhale;
             playerAudio.Play();
         }
 
         // Play audio when triggering dark panel
-        if (other.gameObject.CompareTag("Dark") && stamina > staminaMin)
+        if (other.gameObject.CompareTag("Dark") && stamina > staminaMin + staminaMargin)
         {
             playerAudio.clip = sharpExhale;
             playerAudio.Play();
@@ -240,8 +251,7 @@ public class PlayerController : MonoBehaviour
         // When collecting a powerup, play sound, increase max stamina, and destroy powerup
         if (other.gameObject.CompareTag("Powerup"))
         {
-            playerAudio.clip = ting;
-            playerAudio.PlayOneShot(ting);
+            AudioSource.PlayClipAtPoint(ting, other.transform.position);
             IncreaseMaxStamina(staminaFromPowerup);
             Destroy(other.gameObject);
         }

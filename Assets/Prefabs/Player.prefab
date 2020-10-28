@@ -5127,10 +5127,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stamina: 0
   staminaMax: 0
-  sharpInhale: {fileID: 8300000, guid: cdcc1fed8d7b3b345990d9a345476049, type: 3}
-  sharpExhale: {fileID: 8300000, guid: 2c52e6d4edc370b469015b71990ea6fe, type: 3}
-  softInhale: {fileID: 8300000, guid: 994485b250964ba43881f58b7775663d, type: 3}
-  softExhale: {fileID: 8300000, guid: 0df9580da7dcea244b92612fbbfc3ea5, type: 3}
+  sharpInhale: {fileID: 8300000, guid: a6641b951cb6bd648a794c0e9deb2060, type: 3}
+  sharpExhale: {fileID: 8300000, guid: c7d8383635f5df8448d6637d15c7b83c, type: 3}
+  softInhale: {fileID: 8300000, guid: 69abf453b0b40414aa09d055ca026bfb, type: 3}
+  softExhale: {fileID: 8300000, guid: 4cd6eed55170b0343939032a9e6ec6bc, type: 3}
   ting: {fileID: 8300000, guid: 0496c415d73559b47a7df8edae33cf53, type: 3}
 --- !u!23 &5811968254657088427
 MeshRenderer:

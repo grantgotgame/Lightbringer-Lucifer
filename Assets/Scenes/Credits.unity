@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.61020744, g: 0.553921, b: 0.6499692, a: 1}
+  m_IndirectSpecularColor: {r: 0.6101914, g: 0.5538976, b: 0.64997715, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -511,33 +511,32 @@ MonoBehaviour:
     by Annie Johnson
 
 
-    FesliyanStudios.com
-
-    FreeSound.org/s/210000
-
     SoundBible.com/1628-ting.html
+
+    Others
+    recorded by Grant Brown
 
 
     AllSkyFree
 
-    Foxxee''s
-    Spheres
+    Foxxee''s Spheres
 
-    Free Stylized PBR Textures Pack
+    Free Stylized
+    PBR Textures Pack
 
     Tileable Bricks Wall
 
-    Cartoon
-    FX Free
+    Cartoon FX Free
 
-    Free 3D Eye Model by Johana-PS
+    Free 3D
+    Eye Model by Johana-PS
 
     textures4photoshop.com
 
-    212
-    Keyboard font
+    212 Keyboard font
 
-    Old School Whiteboard font'
+    Old
+    School Whiteboard font'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1242,8 +1241,7 @@ MonoBehaviour:
 
 
 
-    Free Sound Effects:
-
+    Sound Effects:
 
 
 

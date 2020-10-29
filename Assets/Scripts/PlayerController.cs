@@ -206,7 +206,7 @@ public class PlayerController : MonoBehaviour
             stamina += amountToIncrease;
             if (stamina < staminaMax - staminaMargin)
             {
-                StartCoroutine(PlaySoundDelayed(softInhale));
+                //StartCoroutine(PlaySoundDelayed(softInhale));
             }
         }
     }
@@ -216,7 +216,7 @@ public class PlayerController : MonoBehaviour
     {
         staminaMax += amount;
         IncreaseStamina(amount);
-        StartCoroutine(PlaySoundDelayed(softInhale));
+        //StartCoroutine(PlaySoundDelayed(softInhale));
     }
 
     private void OnTriggerStay(Collider other)

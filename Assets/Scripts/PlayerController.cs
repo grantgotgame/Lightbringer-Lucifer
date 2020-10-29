@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     public int stamina;
     public int staminaMax = 0;
     private int staminaMin = 0;
+    private int staminaMargin = 1;
     private int staminaFromPowerup = 5;
     private Slider staminaSlider;
 
@@ -184,7 +185,6 @@ public class PlayerController : MonoBehaviour
             canPlaySound = false;
             yield return new WaitForSeconds(soundTimerLength);
             canPlaySound = true;
-            playerAudio.Stop();
         }
     }
 
@@ -194,17 +194,20 @@ public class PlayerController : MonoBehaviour
         if (stamina > staminaMin)
         {
             stamina--;
-            StartCoroutine(PlaySoundDelayed(softExhale));
+            //StartCoroutine(PlaySoundDelayed(softExhale));
         }
     }
 
     // Increase stamina toward maximum
-    void IncreaseStamina(int amount)
+    void IncreaseStamina(int amountToIncrease)
     {
         if (stamina < staminaMax)
         {
-            stamina += amount;
-            StartCoroutine(PlaySoundDelayed(softInhale));
+            stamina += amountToIncrease;
+            if (stamina < staminaMax - staminaMargin)
+            {
+                StartCoroutine(PlaySoundDelayed(softInhale));
+            }
         }
     }
 
@@ -213,6 +216,7 @@ public class PlayerController : MonoBehaviour
     {
         staminaMax += amount;
         IncreaseStamina(amount);
+        StartCoroutine(PlaySoundDelayed(softInhale));
     }
 
     private void OnTriggerStay(Collider other)
@@ -232,8 +236,6 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        int staminaMargin = 4;
-
         // Play audio when triggering light panel
         if (other.gameObject.CompareTag("Light") && stamina < staminaMax - staminaMargin)
         {

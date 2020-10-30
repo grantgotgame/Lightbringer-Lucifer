@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     private int staminaMin = 0;
     private int staminaMargin = 1;
     private int staminaFromPowerup = 5;
-    private Slider staminaSlider;
+    public Slider staminaSlider;
 
     private float distanceFromWall = .75f;
     private float rotationFromWallX = 270f;
@@ -48,7 +48,6 @@ public class PlayerController : MonoBehaviour
     {
         // Initialize components
         playerRb = GetComponent<Rigidbody>();
-        staminaSlider = GetComponentInChildren<Slider>();
         playerAudio = GetComponent<AudioSource>();
         gameManagerScript = GameObject.Find("Game Manager").GetComponent<GameManager>();
     }

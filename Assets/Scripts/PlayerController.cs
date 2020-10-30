@@ -253,7 +253,8 @@ public class PlayerController : MonoBehaviour
         // When collecting a powerup, play sound, increase max stamina, and destroy powerup
         if (other.gameObject.CompareTag("Powerup"))
         {
-            AudioSource.PlayClipAtPoint(ting, other.transform.position);
+            //AudioSource.PlayClipAtPoint(ting, other.transform.position);
+            playerAudio.PlayOneShot(ting, .5f);
             IncreaseMaxStamina(staminaFromPowerup);
             Destroy(other.gameObject);
         }

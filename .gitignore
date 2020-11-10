@@ -4,4 +4,5 @@ build.bc
 /.vs/
 /[Ll]ibrary/
 *.sln
+/[Mm]arketing/
 *.csproj

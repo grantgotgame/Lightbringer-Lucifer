@@ -1,6 +1,8 @@
-# Lucifer
+# Playable here:
+https://play.unity.com/mg/other/lightbringer-lucifer
 
-Cast out of the heavens, you must gather the light and make your way to the surface in this simple but challenging platformer.
+Cast out of the heavens, you must gather the light and make your way to the surface in this simple but challenging platformer. Best enjoyed with headphones.
  
- Made for Create with Code personal project:
+ Made for Create with Code (personal project)
+ 
  https://learn.unity.com/tutorial/week-4-personal-project-aug-3-aug-7

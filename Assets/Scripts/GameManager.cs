@@ -66,6 +66,15 @@ public class GameManager : MonoBehaviour
         StartCoroutine(ShowText());
     }
 
+    // Toggle GOD MODE (for use with button in Main Menu)
+    public void ToggleGodMode()
+    {
+        if (godModeUnlocked)
+        {
+            godModeActive = !godModeActive;
+        }
+    }
+
     // Display one letter at a time
     private IEnumerator ShowText()
     {

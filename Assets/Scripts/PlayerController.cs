@@ -135,7 +135,7 @@ public class PlayerController : MonoBehaviour
     // Check if player's rotation relative to wall is correct, and fix it if not
     void LockPlayerRotation()
     {
-        float marginOfError = .1f;
+        float marginOfError = 0.1f;
         if (playerRb.transform.localEulerAngles.x < rotationFromWallX - marginOfError ||
             playerRb.transform.localEulerAngles.x > rotationFromWallX + marginOfError)
         {
@@ -190,7 +190,7 @@ public class PlayerController : MonoBehaviour
     // Decrease stamina toward minimum
     void DecreaseStamina()
     {
-        if (stamina > staminaMin)
+        if (stamina > staminaMin && !gameManagerScript.godModeActive)
         {
             stamina--;
             //StartCoroutine(PlaySoundDelayed(softExhale));
@@ -220,13 +220,13 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        // Set stamina to zero while in front of black panel
-        if (other.gameObject.CompareTag("Dark"))
+        // Set stamina to zero while in front of dark panel
+        if (other.gameObject.CompareTag("Dark") && !gameManagerScript.godModeActive)
         {
             stamina = staminaMin;
         }
 
-        // Set stamina to max while in front of white panel
+        // Set stamina to max while in front of light panel
         if (other.gameObject.CompareTag("Light"))
         {
             stamina = staminaMax;
@@ -243,7 +243,8 @@ public class PlayerController : MonoBehaviour
         }
 
         // Play audio when triggering dark panel
-        if (other.gameObject.CompareTag("Dark") && stamina > staminaMin + staminaMargin)
+        if (other.gameObject.CompareTag("Dark") && stamina > staminaMin + staminaMargin &&
+            !gameManagerScript.godModeActive)
         {
             playerAudio.clip = sharpExhale;
             playerAudio.Play();
@@ -262,6 +263,7 @@ public class PlayerController : MonoBehaviour
         if (gameManagerScript.gameHasStarted && other.gameObject.CompareTag("Ceiling"))
         {
             gameManagerScript.gameWon = true;
+            PlayerPrefs.SetInt("God Mode Unlocked", 1);
         }
     }
 

@@ -8,22 +8,30 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     private float messageClearDelay = 15f;
-    private float nextLetterDelay = .03f;
+    private float nextLetterDelay = 0.03f;
 
     private TMP_Text storyText;
 
     private string fullText;
     private string currentText;
 
-    public bool gameHasStarted = false;
-    public bool gameWon = false;
+    public bool gameHasStarted;
+    public bool gameWon;
+
+    public bool godModeUnlocked;
+    public bool godModeActive;
 
     private float boostForce = 100f;
 
     // Start is called before the first frame update
     void Start()
     {
+        // initialize story text
         storyText = GameObject.Find("Story Text").GetComponent<TMP_Text>();
+
+        // check whether god mode is unlocked and active
+        godModeUnlocked = (PlayerPrefs.GetInt("God Mode Unlocked") != 0);
+        godModeActive = (PlayerPrefs.GetInt("God Mode Active") != 0);
     }
 
     // Update is called once per frame
@@ -32,6 +40,7 @@ public class GameManager : MonoBehaviour
 
     }
 
+    // Player ascends when ceiling is reached
     private void OnTriggerEnter(Collider other)
     {
         if (gameHasStarted)

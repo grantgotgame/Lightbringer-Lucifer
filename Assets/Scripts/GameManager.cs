@@ -29,8 +29,9 @@ public class GameManager : MonoBehaviour
         // initialize story text
         storyText = GameObject.Find("Story Text").GetComponent<TMP_Text>();
 
-        // check whether god mode is unlocked
+        // check whether god mode is unlocked and active
         godModeUnlocked = (PlayerPrefs.GetInt("God Mode Unlocked") != 0);
+        godModeActive = (PlayerPrefs.GetInt("God Mode Active") != 0);
     }
 
     // Update is called once per frame
@@ -64,15 +65,6 @@ public class GameManager : MonoBehaviour
         StopAllCoroutines();
         fullText = powerupText;
         StartCoroutine(ShowText());
-    }
-
-    // Toggle GOD MODE (for use with button in Main Menu)
-    public void ToggleGodMode()
-    {
-        if (godModeUnlocked)
-        {
-            godModeActive = !godModeActive;
-        }
     }
 
     // Display one letter at a time

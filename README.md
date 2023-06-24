@@ -1,6 +1,6 @@
 # Lightbringer Lucifer
 Playable here:
-https://play.unity.com/mg/other/lightbringer-lucifer
+https://komodeo.itch.io/lightbringer-lucifer
 
 Cast out of the heavens, you must gather the light and make your way to the surface in this simple but challenging platformer. Best enjoyed with headphones.
  
